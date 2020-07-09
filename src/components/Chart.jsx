@@ -6,10 +6,11 @@ import {
   CartesianGrid,
   XAxis,
   YAxis,
-  Tooltip
+  Tooltip,
 } from "recharts";
+import { useEffect } from "react";
 
-const Chart = ({ sparklineData }) => {
+const Chart = ({ sparklineData, darkMode }) => {
   const formattedData = sparklineData
     .map((price, idx) => {
       if (idx % 6 === 0) {
@@ -24,17 +25,29 @@ const Chart = ({ sparklineData }) => {
       }
       return null;
     })
-    .filter(data => data);
+    .filter((data) => data);
 
-  return (
-    <LineChart width={1100} height={300} data={formattedData}>
-      <Line type="monotone" dataKey="value" stroke="#8884d8" />
-      <CartesianGrid stroke="#ccc" strokeDasharray="5 5" />
-      <XAxis dataKey="date" interval={3} />
-      <YAxis />
-      <Tooltip />
-    </LineChart>
-  );
+  if (darkMode === true) {
+    return (
+      <LineChart width={1100} height={300} data={formattedData}>
+        <Line type="monotone" dataKey="value" stroke="#FF4500" />
+        <CartesianGrid stroke="#ccc" strokeDasharray="5 5" />
+        <XAxis dataKey="date" interval={3} />
+        <YAxis />
+        <Tooltip />
+      </LineChart>
+    );
+  } else {
+    return (
+      <LineChart width={1100} height={300} data={formattedData}>
+        <Line type="monotone" dataKey="value" stroke="#663399" />
+        <CartesianGrid stroke="#ccc" strokeDasharray="5 5" />
+        <XAxis dataKey="date" interval={3} />
+        <YAxis />
+        <Tooltip />
+      </LineChart>
+    );
+  }
 };
 
 export default Chart;
